@@ -77,7 +77,9 @@ public class CompteController {
 	@ApiOperation(value = "chercher un compte ",
     notes="vous devez specifier l'email et le mot de passe")
 	public ResponseEntity<Compte> ChercherCompte(@ApiParam(value = "l'email de l'utilisateur",required = true)  @RequestParam String email , @ApiParam(value = "le mot de passe de l'utilisateur",required = true) @RequestParam  String MDP){
-	    Compte C = comptedao.VerifierCompte(email, MDP);
+	    System.out.println("ANA HNA 1");
+		Compte C = comptedao.VerifierCompte(email, MDP);
+	    System.out.println(C.getEmail());
 		return new ResponseEntity<>(C,HttpStatus.OK);
 	}
 	
@@ -86,7 +88,9 @@ public class CompteController {
 	@ApiOperation(value = "Verifier un compte ",
     notes="vous devez specifier l'email et le mot de passe")
 	public ResponseEntity<Integer> VerifierCompte(@ApiParam(value = "l'email de l'utilisateur",required = true)  @RequestParam String email , @ApiParam(value = "le mot de passe de l'utilisateur",required = true) @RequestParam  String MDP){
-	    Compte C = comptedao.VerifierCompte(email, MDP);
+	    System.out.println("ANA HNA 2");
+		Compte C = comptedao.VerifierCompte(email, MDP);
+	    System.out.println("ANA HNA 3");
 	    int type_compte = 0;
 	    if(C==null) type_compte= -1;
 	    else if(C instanceof Compte_Utilisateur)  type_compte= 1;

@@ -24,7 +24,7 @@ public class Approv_Soft implements Serializable{
 	private Date date_Request;
 	private Date date_Approv;
 	private boolean acceptee;
-	private String status;
+	private int status;
 	
 	@ManyToOne  (fetch = FetchType.EAGER)
 	@JoinColumn( name="id_software" )
@@ -43,10 +43,10 @@ public class Approv_Soft implements Serializable{
 	}
 
 
-	public Approv_Soft(Date date_Request, Date date_Approv, boolean acceptee, String status, Software software,
+	public Approv_Soft(Date date_Request, Date date_Approv, boolean acceptee, int status, Software software,
 			Compte_Utilisateur user) {
 		super();
-		this.date_Request = date_Request;
+		this.date_Request = new Date();
 		this.date_Approv = date_Approv;
 		this.acceptee = acceptee;
 		this.status = status;
@@ -70,6 +70,11 @@ public class Approv_Soft implements Serializable{
 	}
 
 
+	public Long getId_Approv() {
+		return id_Approv;
+	}
+
+
 	public void setDate_Approv(Date date_Approv) {
 		this.date_Approv = date_Approv;
 	}
@@ -85,12 +90,12 @@ public class Approv_Soft implements Serializable{
 	}
 
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

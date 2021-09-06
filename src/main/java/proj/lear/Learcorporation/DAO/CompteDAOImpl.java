@@ -41,9 +41,9 @@ public class CompteDAOImpl implements ICompteDAO {
 	}
 
 	@Override
-	public Compte VerifierCompte(String Email, String motpasse) {
+	public Compte VerifierCompte(String email, String motpasse) {
 		// TODO Auto-generated method stub
-		return compterepo.findByEmailAndMotpasse(Email, motpasse);
+		return compterepo.findByEmailAndMotpasse(email, motpasse);
 	}
 
 	@Override

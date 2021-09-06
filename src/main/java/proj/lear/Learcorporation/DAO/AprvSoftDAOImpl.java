@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import proj.lear.Learcorporation.Entity.Approv_Soft;
 import proj.lear.Learcorporation.Entity.Aprov_Lic;
 import proj.lear.Learcorporation.Entity.Compte_Utilisateur;
@@ -21,7 +22,16 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 	private ApproSofRepo approvsoft;
 	
 	@Autowired
+	private ISoftwareDAO sofdao;
+	
+	@Autowired
 	private CompteUserRepo compteusrepo;
+	
+	@Autowired
+	private ICompteDAO comptedao;
+	
+	@Autowired
+	private ApproSofRepo appsofrepo;
 
 	@Override
 	public List<Software> ListeSoftwaresApprovedUser(Long id_user) {
@@ -36,7 +46,47 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 		Approv_Soft AL = approvsoft.findById(id_dem_software).orElse(null);
 		AL.setAcceptee(true);
 		AL.setDate_Approv(new Date());
+		AL.setStatus(1);
 		approvsoft.save(AL);
 	}
+	
+	@Override
+	public Approv_Soft Ajoute_Demande_Approve(Long id_Software, Long id_User) {
+		// TODO Auto-generated method stub
+		Software S = sofdao.ChercherSoftware(id_Software);
+		Compte_Utilisateur CU = (Compte_Utilisateur) comptedao.ChercherCompte(id_User);
+		return approvsoft.save(new Approv_Soft(new Date(), null, false, 0, S, CU));
+	}
 
+	@Override
+	public List<Approv_Soft> ListeAllApprovSoft() {
+		// TODO Auto-generated method stub
+		return appsofrepo.findAll();
+	}
+
+	@Override
+	public List<Approv_Soft> ListeUserApprovSoft(Long id_User) {
+		// TODO Auto-generated method stub
+		Compte_Utilisateur CU = (Compte_Utilisateur) comptedao.ChercherCompte(id_User);
+		List<Approv_Soft> L = appsofrepo.findAll();
+		List<Approv_Soft> L1 = null;
+		
+		for(Approv_Soft A : L) {
+			Compte_Utilisateur C = A.getUser();
+		   if(C == CU ) {
+			   L1.add(A);
+		   }
+		} 
+		return L1;
+	}
+
+	@Override
+	public void Refuse_Software_Use(Long id_dem_software) {
+		// TODO Auto-generated method stub
+		Approv_Soft AL = approvsoft.findById(id_dem_software).orElse(null);
+		AL.setAcceptee(false);
+		AL.setDate_Approv(new Date());
+		AL.setStatus(2);
+		approvsoft.save(AL);
+	}
 }

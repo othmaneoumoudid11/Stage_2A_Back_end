@@ -52,7 +52,7 @@ public class LicenceController {
     notes="vous devez entrez l'objet licence sous forme JSON avec id")
 	public ResponseEntity<Licence> ModifierLicence(@ApiParam(value = "Objet licence",required = true) @RequestBody Licence licence){
 		Licence L = liceneDao.ModifierLicence(licence);
-		System.out.println("modifier licence ");
+		System.out.println("modifier licence "+L.getImageUrl());
 		return new ResponseEntity<>(L,HttpStatus.OK);
 	}
 	
