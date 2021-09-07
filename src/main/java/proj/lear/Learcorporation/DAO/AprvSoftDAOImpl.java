@@ -48,6 +48,10 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 		AL.setDate_Approv(new Date());
 		AL.setStatus(1);
 		approvsoft.save(AL);
+		Software S = AL.getSoftware();
+		Compte_Utilisateur CU = AL.getUser();
+		List<Software> L = CU.getSoftwares();
+		L.add(S);
 	}
 	
 	@Override
