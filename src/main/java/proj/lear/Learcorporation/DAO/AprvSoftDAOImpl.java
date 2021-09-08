@@ -1,5 +1,6 @@
 package proj.lear.Learcorporation.DAO;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 		// TODO Auto-generated method stub
 		Approv_Soft AL = approvsoft.findById(id_dem_software).orElse(null);
 		AL.setAcceptee(true);
-		AL.setDate_Approv(new Date());
+		AL.setDate_Approv(LocalDate.now());
 		AL.setStatus(1);
 		approvsoft.save(AL);
 		Software S = AL.getSoftware();
@@ -58,8 +59,10 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 	public Approv_Soft Ajoute_Demande_Approve(Long id_Software, Long id_User) {
 		// TODO Auto-generated method stub
 		Software S = sofdao.ChercherSoftware(id_Software);
+		System.out.println(S.getSoft_Desc());
 		Compte_Utilisateur CU = (Compte_Utilisateur) comptedao.ChercherCompte(id_User);
-		return approvsoft.save(new Approv_Soft(new Date(), null, false, 0, S, CU));
+		System.out.println(CU.getFirst_name());
+		return approvsoft.save(new Approv_Soft(LocalDate.now(), null, false, 0, S, CU));
 	}
 
 	@Override
@@ -89,7 +92,7 @@ public class AprvSoftDAOImpl implements IAprSofDAO{
 		// TODO Auto-generated method stub
 		Approv_Soft AL = approvsoft.findById(id_dem_software).orElse(null);
 		AL.setAcceptee(false);
-		AL.setDate_Approv(new Date());
+		AL.setDate_Approv(LocalDate.now());
 		AL.setStatus(2);
 		approvsoft.save(AL);
 	}

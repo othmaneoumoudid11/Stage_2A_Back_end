@@ -12,8 +12,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import proj.lear.Learcorporation.DAO.CompteDAOImpl;
+import proj.lear.Learcorporation.DAO.IAprSofDAO;
 import proj.lear.Learcorporation.DAO.ILicenceDAO;
 import proj.lear.Learcorporation.DAO.ISoftwareDAO;
+import proj.lear.Learcorporation.Entity.Approv_Soft;
 import proj.lear.Learcorporation.Entity.Compte;
 import proj.lear.Learcorporation.Entity.Compte_Utilisateur;
 import proj.lear.Learcorporation.Entity.Licence;
@@ -35,6 +37,9 @@ public class LearcorporationApplication implements CommandLineRunner{
 
 	@Autowired
 	private ISoftwareDAO sotwaredao;
+	
+	@Autowired
+	private IAprSofDAO aprsof;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LearcorporationApplication.class, args);
@@ -83,9 +88,12 @@ public class LearcorporationApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		//Software S = sotwaredao.AjouterSoftware(new Software("soft_ref", "soft_manif", "soft_suppl", "soft_familly", "soft_version","soft_Desc","hgcgh"));
+		Software S = sotwaredao.AjouterSoftware(new Software("soft_ref", "soft_manif", "soft_suppl", "soft_familly", "soft_version","soft_Desc","hgcgh"));
 		//Licence L = licencedao.AjouterLicence(new Licence("cvghjhccvh", "0", "khghjkbhhxxxx", "0", "xxxyy",
 				//"cc", "cc", S));
+		Compte C =  comptedao.AjouterCompteU(new Compte_Utilisateur("first_name", "last_name", "email", "motpasse", "Num_telephone"));
+		
+		Approv_Soft APRS = aprsof.Ajoute_Demande_Approve(1L, 1L);
 
 	}
 	
