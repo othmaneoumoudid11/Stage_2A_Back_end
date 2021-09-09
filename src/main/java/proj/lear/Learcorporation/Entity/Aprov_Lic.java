@@ -1,6 +1,7 @@
 package proj.lear.Learcorporation.Entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,17 +22,16 @@ public class Aprov_Lic implements Serializable{
 	@Column(nullable = false, updatable = false)
 	private Long id_Approv;
 	
-	private Date date_Request;
-	private Date date_Approv;
+	private LocalDate date_Request;
+	private LocalDate date_Approv;
 	private boolean acceptee;
 	
 	@ManyToOne  (fetch = FetchType.EAGER)
 	@JoinColumn( name="id_licence" )
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Licence licence;
 	
 
-	@ManyToOne  (fetch = FetchType.LAZY)
+	@ManyToOne  (fetch = FetchType.EAGER)
 	@JoinColumn( name="id_compte" )
 	private Compte_Utilisateur user;
 
@@ -42,9 +42,9 @@ public class Aprov_Lic implements Serializable{
 	}
 
 
-	public Aprov_Lic(Date date_Request, Date date_Approv, boolean acceptee, Licence licence, Compte_Utilisateur user) {
+	public Aprov_Lic(LocalDate date_Request, LocalDate date_Approv, boolean acceptee, Licence licence, Compte_Utilisateur user) {
 		super();
-		this.date_Request = date_Request;
+		this.date_Request = LocalDate.now();
 		this.date_Approv = date_Approv;
 		this.acceptee = acceptee;
 		this.licence = licence;
@@ -52,22 +52,22 @@ public class Aprov_Lic implements Serializable{
 	}
 
 
-	public Date getDate_Request() {
+	public LocalDate getDate_Request() {
 		return date_Request;
 	}
 
 
-	public void setDate_Request(Date date_Request) {
+	public void setDate_Request(LocalDate date_Request) {
 		this.date_Request = date_Request;
 	}
 
 
-	public Date getDate_Approv() {
+	public LocalDate getDate_Approv() {
 		return date_Approv;
 	}
 
 
-	public void setDate_Approv(Date date_Approv) {
+	public void setDate_Approv(LocalDate date_Approv) {
 		this.date_Approv = date_Approv;
 	}
 
