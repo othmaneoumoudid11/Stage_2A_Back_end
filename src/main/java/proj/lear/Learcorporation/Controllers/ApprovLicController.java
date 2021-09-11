@@ -41,7 +41,7 @@ public class ApprovLicController {
 	@GetMapping("/Ajouter")
 	@ApiOperation(value = "Demmander Apprv Software",
     notes="vous devez specifier id_user et id_software")
-	public ResponseEntity<Aprov_Lic> ChercherCompte(@ApiParam(value = "Software id",required = true)  @RequestParam Long id_software , @ApiParam(value = "user id",required = true) @RequestParam  Long id_user){
+	public ResponseEntity<Aprov_Lic> AjouterAprv(@ApiParam(value = "Software id",required = true)  @RequestParam Long id_software , @ApiParam(value = "user id",required = true) @RequestParam  Long id_user){
 	    System.out.println("ANA HNA 1");
         Aprov_Lic APS = aprvlic.Ajoute_Demande_Approve(id_software, id_user);
 	    System.out.println(APS.getDate_Request());
@@ -49,7 +49,7 @@ public class ApprovLicController {
 	}
 	
 	@GetMapping("/listeDemAprv")
-	public ResponseEntity<List<Aprov_Lic>> ListeLocation(){
+	public ResponseEntity<List<Aprov_Lic>> ListeDemAprv(){
 		List<Aprov_Lic> L = aprvlic.ListeAllApprovLic();
 		return new ResponseEntity<>(L,HttpStatus.OK);
 	}
